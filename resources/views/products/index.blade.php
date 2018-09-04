@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+
 	<div class="card">
 		<div class="card-header text-center">
 			All Products
-		</div>
+		</div>	
 		<div class="card-body">
 			<table class="table table-hover">
 				<tr>
@@ -26,6 +27,7 @@
 				</tr>
 				@endforeach	
 			</table>
+			{{ $products->links() }}
 			<div class="text-center">
 				<a href="{{ route('products.new') }}" class="btn btn-success">Add New Product</a>
 			</div>
