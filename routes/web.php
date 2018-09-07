@@ -70,3 +70,11 @@ Route::get('/brand/{id}', [
 	'uses' => 'BrandsController@show',
 	'as' => 'brand.show'
 ]);
+Route::post('/units', [
+	'uses' => 'UnitsController@store',
+	'as' => 'units'
+]);
+Route::get('/units', [
+	'uses' => 'UnitsController@index',
+	'as' => 'units'
+]);

@@ -2,7 +2,7 @@
 
 @section('content')
 
-{{ Form::model($products, ['route' => array('products'), 'method' => 'get']) }}
+{{ Form::model($products, ['route' => 'products', 'method' => 'get']) }}
 {{ Form::token() }}
 <div class="input-group">
 {{ Form::text('search', Input::get('search'), ['placeholder' => 'Search product', 'class' => 'form-control']) }}

@@ -6,8 +6,8 @@
 			Update the product
 		</div>
 		<div class="card-body">
-			@include('products.errors')
-			{{ Form::model($product, array('route' => array('products.update', ['id' => $product->id]))) }}
+			@include('errors.errors')
+			{{ Form::model($product, ['route' => ['products.update', 'id' => $product->id]]) }}
 			@include('products.form', ['btnText' => 'Update Product'])
 			{{ Form::close() }}
 			
@@ -15,4 +15,3 @@
 	</div>
 @endsection
 
-new test mess

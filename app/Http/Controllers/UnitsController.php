@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Unit;
 use App\Product;
 use App\Brand;
-use App\Unit;
 
-class ProductsController extends Controller
+class UnitsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,21 @@ class ProductsController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $products = Product::where('name', 'LIKE', '%' . $search . '%')->paginate(3);
-        return view('products/index')->with('products', $products);
+        $unit = new Unit(); 
+        $units = $unit->newQuery();
+        if ($request->input('number') != '') {
+            $units->where('number', $request->input('number'));
+        }
+
+        if ($request->input('product') != '') {
+            $product = $request->input('product');
+            $units->whereHas('product', function($q) use ($product) {
+                $q->where('name', 'LIKE', '%' . $product . '%');
+            });
+        }
+        
+        $units = $units->get();
+        return view('units/index')->with('units', $units);
     }
 
     /**
@@ -28,9 +40,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $brands = Brand::pluck('name', 'id');
-        $product = new Product();
-        return view('products/create')->with('product', $product)->with('brands', $brands);
+        //
     }
 
     /**
@@ -41,13 +51,13 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $product = new Product;
+        $unit = new Unit;
 
-        if ($this->validate($request, $product->rules)) {
-            $product->create($request->all());
+        if ($this->validate($request, $unit->rules)) {
+            $unit->create($request->all());
         } 
 
-        return redirect('products');
+        return redirect()->back();
     }
 
     /**
@@ -58,9 +68,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
-        $units = $product->units;
-        return view('products/view')->with('product', $product)->with('units', $units);
+        //
     }
 
     /**
@@ -71,9 +79,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-        $brands = Brand::pluck('name', 'id');
-        return view('products/edit')->with('product', $product)->with('brands', $brands);
+        //
     }
 
     /**
@@ -85,13 +91,7 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
-
-        if($this->validate($request, $product->rules)) {
-            $product->update($request->all());
-        }
-
-        return redirect('products');
+        //
     }
 
     /**
@@ -102,10 +102,6 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
-
-        $product->delete();
-
-        return redirect('products');
+        //
     }
 }

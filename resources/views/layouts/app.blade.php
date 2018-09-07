@@ -39,6 +39,9 @@
                     <li class="list-group-item">
                         <a href="{{ route('brands') }}">Brands</a>
                     </li>
+                    <li class="list-group-item">
+                        <a href="{{ route('units') }}">Units</a>
+                    </li>
                 </ul>
             </div>
 	        <div class="col-lg-8">
