@@ -2,6 +2,15 @@
 
 @section('content')
 
+{{ Form::model($products, ['route' => array('products'), 'method' => 'get']) }}
+{{ Form::token() }}
+<div class="input-group">
+{{ Form::text('search', Input::get('search'), ['placeholder' => 'Search product', 'class' => 'form-control']) }}
+{{ Form::submit('Search', ['class' => 'btn btn-success']) }}
+</div>
+{{ Form::close() }}
+
+<br>
 	<div class="card">
 		<div class="card-header text-center">
 			All Products
@@ -11,6 +20,7 @@
 				<tr>
 					<th>ID</th>
 					<th>Name</th>
+					<th>Brand</th>
 					<th>Price</th>
 					<th>Actions</th>
 				</tr>
@@ -18,6 +28,7 @@
 				<tr>	
 					<td>{{ $product->id }}</td>
 					<td>{{ $product->name }}</td>
+					<td>{{ $product->brand->name }}</td>
 					<td>{{ $product->price }}</td>
 					<td>
 						<a href="{{ route('products.edit', ['id' => $product->id]) }}" class="btn btn-warning btn-sm">Edit</a>

@@ -6,7 +6,7 @@
 			Add a new product
 		</div>
 		<div class="card-body">
-			@include('products.errors')
+			@include('errors.errors')
 			{{ Form::model($product, array('route' => array('products'))) }}
 			@include('products.form', ['btnText' => 'Create Product'])
 			{{ Form::close() }}

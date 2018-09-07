@@ -42,3 +42,31 @@ Route::get('/product/{id}', [
 	'uses' => 'ProductsController@show',
 	'as' => 'product.show'
 ]);
+Route::get('/brands', [
+	'uses' => 'BrandsController@index',
+	'as' => 'brands'
+]);
+Route::get('/brands/new', [
+	'uses' => 'BrandsController@create',
+	'as' => 'brands.new'
+]);
+Route::post('/brands', [
+	'uses' => 'BrandsController@store',
+	'as' => 'brands'
+]);
+Route::get('/brands/edit/{id}', [
+	'uses' => 'BrandsController@edit',
+	'as' => 'brands.edit'
+]);
+Route::post('/brands/{id}', [
+	'uses' => 'BrandsController@update',
+	'as' => 'brands.update'
+]);
+Route::get('/brands/{id}', [
+	'uses' => 'BrandsController@destroy',
+	'as' => 'brands.delete'
+]);
+Route::get('/brand/{id}', [
+	'uses' => 'BrandsController@show',
+	'as' => 'brand.show'
+]);

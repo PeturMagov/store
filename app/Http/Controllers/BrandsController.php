@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Product;
 use App\Brand;
 
-class ProductsController extends Controller
+class BrandsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->input('search');
-        $products = Product::where('name', 'LIKE', '%' . $search . '%')->paginate(3);
-        return view('products/index')->with('products', $products);
+        $brand = Brand::all();
+        return view('brands/index')->with('brands', $brand);
     }
 
     /**
@@ -27,9 +25,8 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $brands = Brand::pluck('name', 'id');
-        $product = new Product();
-        return view('products/create')->with('product', $product)->with('brands', $brands);
+        $brand = new Brand();
+        return view('brands/create')->with('brands', $brand);
     }
 
     /**
@@ -40,13 +37,13 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $product = new Product;
+        $brand = new Brand;
 
-        if ($this->validate($request, $product->rules)) {
-            $product->create($request->all());
+        if ($this->validate($request, $brand->rules)) {
+            $brand->create($request->all());
         } 
 
-        return redirect('products');
+        return redirect('brands');
     }
 
     /**
@@ -57,8 +54,8 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
-        return view('products/view')->with('product', $product);
+        $brand = Brand::find($id);
+        return view('brands/view')->with('brand', $brand);
     }
 
     /**
@@ -69,8 +66,8 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
-        return view('products/edit')->with('product', $product);
+        $brand = Brand::find($id);
+        return view('brands/edit')->with('brand', $brand);
     }
 
     /**
@@ -82,13 +79,13 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
+        $brand = Brand::find($id);
 
-        if($this->validate($request, $product->rules)) {
-            $product->update($request->all());
+        if($this->validate($request, $brand->rules)) {
+            $brand->update($request->all());
         }
 
-        return redirect('products');
+        return redirect('brands');
     }
 
     /**
@@ -99,10 +96,10 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
+        $brand = Brand::find($id);
 
-        $product->delete();
+        $brand->delete();
 
-        return redirect('products');
+        return redirect('brands');
     }
 }
